@@ -1,0 +1,11 @@
+const ContactProtocolTypes = {
+    GET_CONTACTS: 'GET_CONTACTS',
+    GET_CONTACT: 'GET_CONTACT',
+    UPDATE_CONTACTS: 'UPDATE_CONTACTS',
+    REMOVE_CONTACTS: 'REMOVE_CONTACTS',
+    CREATE_CONTACT: 'CREATE_CONTACT',
+    SUCCESS: 'SUCCESS',
+    NOT_FOUND: 'NOT_FOUND'
+}
+
+module.exports = ContactProtocolTypes
