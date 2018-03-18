@@ -1,15 +1,18 @@
 {
-  "name": "address-book",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
-    "nact": "^5.0.0",
-    "nact-persistence-postgres": "^4.3.1",
-    "ramda": "^0.25.0",
-    "sanctuary": "^0.14.1"
-  }
+    "name": "address-book",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon ./server.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "dotenv": "^5.0.1",
+        "express": "^4.16.3",
+        "nact": "^5.0.0",
+        "nact-persistence-postgres": "^4.3.1",
+        "ramda": "^0.25.0",
+        "sanctuary": "^0.14.1"
+    }
 }

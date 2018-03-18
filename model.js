@@ -1,13 +1,21 @@
 const {query} = require('nact')
 const Task = require('data.task')
-const {map} = require('ramda')
+const {map, prop} = require('ramda')
 const {log} = require('./utils')
 
+const toQueryTask = contactsService => msg => timeout => new Task((rej, res) => query(contactsService, msg, timeout).then(res, rej))
+
+const toViewModel = dto =>
+  dto.type === "SUCCESS"
+  ? dto.payload
+  : dto.payload
+
+
 const model = {
-    performQuery: async(contactsService, msg, res) => {
-        log('msg')(msg)
+    performQuery: (contactsService, msg, res) => {
         try {
-            const result = await query(contactsService, msg, 10000); // Set a 500ms timeout
+            const result = query(contactsService, msg, 50000); // Set a 500ms timeout
+            log('result')(result)
             switch (result.type) {
                 case SUCCESS:
                     res.json(result.payload);
@@ -28,7 +36,11 @@ const model = {
         }
     },
 
-    queryTask: contactsService => (msg, res) => new Task((rej, res) => query(contactsService, msg, 500)).map(log('?wtf?'))
+    queryTask: (contactsService, msg) => toQueryTask(contactsService)(msg)(50000)
+    .map(log('dto'))
+    .map(toViewModel)
+    .map(log('vm3'))
+
 }
 
 module.exports = model
