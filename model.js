@@ -3,7 +3,11 @@ const Task = require('data.task')
 const {map, prop} = require('ramda')
 const {log} = require('./utils')
 
-const toQueryTask = contactsService => msg => timeout => new Task((rej, res) => query(contactsService, msg, timeout).then(res, rej))
+const toQueryTask = contactsService => msg => timeout => {
+  //const service = contactsService.parent ? contactsService.parent : contactsService
+  log('contactService')(contactsService)
+  return new Task((rej, res) => query(contactsService, msg, timeout).then(res, rej))
+}
 
 const toViewModel = dto =>
   dto.type === "SUCCESS"
@@ -15,7 +19,7 @@ const model = {
     performQuery: (contactsService, msg, res) => {
         try {
             const result = query(contactsService, msg, 50000); // Set a 500ms timeout
-            log('result')(result)
+            //log('result')(result)
             switch (result.type) {
                 case SUCCESS:
                     res.json(result.payload);
@@ -37,9 +41,7 @@ const model = {
     },
 
     queryTask: (contactsService, msg) => toQueryTask(contactsService)(msg)(50000)
-    .map(log('dto'))
     .map(toViewModel)
-    .map(log('vm3'))
 
 }
 
